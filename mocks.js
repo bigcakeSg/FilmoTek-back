@@ -1,7 +1,4 @@
-const express = require('express');
-const router = express.Router();
-
-const movieList = [
+module.exports.movieList = [
   // Spielberg
   'tt0067023',
   'tt0072226',
@@ -255,9 +252,3 @@ const movieList = [
   'tt0253474',
   'tt1139328'
 ];
-
-router.get('/', (req, res) => {
-  res.json(movieList);
-});
-
-module.exports = router;
