@@ -1,32 +1,27 @@
 const mongoose = require('mongoose');
 
-const picture = {
+const pictureSchema = new mongoose.Schema({
   url: { type: String, required: false },
   height: { type: Number, required: false },
   width: { type: Number, required: false }
-};
+});
 
-const person = {
-  id: { type: String, required: true },
-  name: { type: String, required: true },
+const creator = new mongoose.Schema({
+  name: { type: mongoose.Types.ObjectId, ref: 'Name', required: true },
   attributes: { type: [String], required: false }
-};
+});
 
-const cast = {
-  type: [
-    {
-      ...person,
-      characters: { type: [String], required: true },
-      picture: { type: picture, required: false }
-    }
-  ],
-  required: true
-};
+const cast = new mongoose.Schema({
+  name: { type: mongoose.Types.ObjectId, ref: 'Name', required: true },
+  characters: { type: [String], required: true },
+  picture: { type: pictureSchema, required: false },
+  attributes: { type: [String], required: false }
+});
 
-const movieSchema = mongoose.Schema({
+const movieSchema = new mongoose.Schema({
   imdbId: { type: String, required: false },
   originalTitle: { type: String, required: true },
-  regionalTitle: {
+  regionalTitles: {
     type: [
       {
         title: { type: String, required: false },
@@ -36,7 +31,7 @@ const movieSchema = mongoose.Schema({
     required: false
   },
   picture: {
-    type: picture,
+    type: pictureSchema,
     required: false
   },
   releaseDate: {
@@ -47,27 +42,24 @@ const movieSchema = mongoose.Schema({
     },
     required: false
   },
+  duration: { type: Number, required: false },
+  plot: { type: String, required: false },
   genres: {
-    type: [
-      {
-        id: { type: String, required: true },
-        text: { type: String, required: true }
-      }
-    ],
+    type: [{ type: mongoose.Types.ObjectId, ref: 'Genre', required: false }],
     required: false
   },
   directors: {
-    type: [person],
+    type: [{ type: creator, ref: 'Name', required: false }],
     required: false
   },
   writers: {
-    type: [person],
+    type: [{ type: creator, ref: 'Name', required: false }],
     required: false
   },
   casting: {
     type: {
-      principal: cast,
-      extended: cast
+      principal: [{ type: cast, required: false }],
+      extended: [{ type: cast, required: false }]
     },
     required: false
   }

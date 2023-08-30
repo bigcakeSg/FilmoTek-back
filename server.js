@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Routes
 app.use('/movie', require('./routes/movie.routes'));
 
-app.listen(port /*, () => console.log("Server port :", port)*/);
+app.listen(port, () => console.log('Server port :', port));
