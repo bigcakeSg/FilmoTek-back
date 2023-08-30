@@ -1,16 +1,21 @@
 const express = require('express');
-var cors = require('cors');
+const cors = require('cors');
+const dotenv = require('dotenv').config();
+const connectDb = require('./config/db');
 
 const port = 5000;
 
+// Connexion DB
+connectDb();
+
 const app = express();
 
-// Middleware : traiter donnees de la request
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Routes
 app.use('/movie', require('./routes/movie.routes'));
-app.use('/movie-list', require('./routes/movie-list.routes'));
 
-app.listen(port /*, () => console.log("Server port :", port)*/);
+app.listen(port, () => console.log('Server port :', port));
