@@ -14,7 +14,6 @@ const creator = new mongoose.Schema({
 const cast = new mongoose.Schema({
   name: { type: mongoose.Types.ObjectId, ref: 'Name', required: true },
   characters: { type: [String], required: true },
-  picture: { type: pictureSchema, required: false },
   attributes: { type: [String], required: false }
 });
 

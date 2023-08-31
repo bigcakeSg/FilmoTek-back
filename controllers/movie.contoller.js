@@ -75,11 +75,12 @@ module.exports.setMovie = async (req, res) => {
   }
 };
 
-// Get movies Id
+// Get movie list
 module.exports.getMovieList = async (_, res) => {
   try {
     const movies = await Movie.find()
       .select('imdbId originalTitle releaseDate directors')
+      .sort('originalTitle')
       .populate('directors.name');
 
     res.status(200).json(movies);
