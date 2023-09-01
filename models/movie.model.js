@@ -35,7 +35,7 @@ const movieSchema = new mongoose.Schema({
   },
   releaseDate: {
     type: {
-      year: { type: Number, required: true },
+      year: { type: Number, required: false },
       month: { type: Number, required: false },
       day: { type: Number, required: false }
     },
