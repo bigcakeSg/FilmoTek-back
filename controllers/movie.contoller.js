@@ -79,7 +79,11 @@ module.exports.setMovie = async (req, res) => {
 module.exports.getMovieList = async (_, res) => {
   try {
     const movies = await Movie.find()
-      .select('imdbId originalTitle releaseDate directors')
+      .select(
+        'imdbId originalTitle regionalTitles picture releaseDate directors'
+      )
+      // .skip(0) // first item
+      // .limit(300) // number of items
       .sort('originalTitle')
       .populate('directors.name');
 
