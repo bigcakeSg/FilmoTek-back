@@ -6,7 +6,7 @@ const {
   getMovieList,
   getMovieMiniInfos,
   getMovieFullInfos
-} = require('../controllers/movie.contoller');
+} = require('../controllers/movie.controller');
 
 router.post('/', setMovie);
 router.get('/list', getMovieList);

@@ -68,7 +68,7 @@ module.exports.setMovie = async (req, res) => {
         casting: { principal: principalCastList, extended: extendedCastList }
       });
 
-      res.status(201).json();
+      res.status(201).json(newMovie);
     }
   } catch (error) {
     res.status(400).json(error.message);

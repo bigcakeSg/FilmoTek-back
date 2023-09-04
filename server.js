@@ -17,5 +17,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use('/movie', require('./routes/movie.routes'));
+app.use('/config', require('./routes/config.routes'));
 
 app.listen(port, () => console.log('Server port :', port));
