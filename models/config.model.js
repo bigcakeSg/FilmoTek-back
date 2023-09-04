@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const configSchema = new mongoose.Schema({
-  rapidApiHeader: { type: String, required: true },
+  rapidApiHeader: { type: Object, required: true },
   region: { type: String, required: true }
 });
 
