@@ -50,9 +50,6 @@ module.exports.setMovie = async (req, res) => {
       req.body.casting.extended
     );
 
-    // Create movie
-    let newMovie;
-
     // Check if movie already exists
     const movieExists = await Movie.exists({
       imdbId: req.body.imdbId
@@ -60,13 +57,19 @@ module.exports.setMovie = async (req, res) => {
 
     if (movieExists) res.status(200).json(req.body);
     else {
-      newMovie = await Movie.create({
+      await Movie.create({
         ...req.body,
         genres: genreList,
         directors: directorList,
         writers: writerList,
         casting: { principal: principalCastList, extended: extendedCastList }
       });
+
+      const newMovie = await Movie.findOne({
+        imdbId: req.body.imdbId
+      }).populate(
+        'genres directors.name writers.name casting.principal.name casting.extended.name'
+      );
 
       res.status(201).json(newMovie);
     }
@@ -80,7 +83,7 @@ module.exports.getMovieList = async (_, res) => {
   try {
     const movies = await Movie.find()
       .select(
-        'imdbId originalTitle regionalTitles picture releaseDate directors'
+        'imdbId originalTitle regionalTitles picture releaseDate directors seen'
       )
       // .skip(0) // first item
       // .limit(300) // number of items
@@ -98,7 +101,7 @@ module.exports.getMovieMiniInfos = async (req, res) => {
   try {
     const movie = await Movie.findOne({ imdbId: req.params.imdbId })
       .select(
-        'imdbId originalTitle regionalTitles picture releaseDate directors'
+        'imdbId originalTitle regionalTitles picture releaseDate directors seen'
       )
       .populate('directors.name');
 
@@ -134,6 +137,27 @@ module.exports.deleteMovie = async (req, res) => {
 
     await movie.deleteOne({ _id: movie });
     res.status(200).json({ message: `"${movie.originalTitle}" deleted!` });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+// Update seen movie
+module.exports.updateSeenMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findOne({ imdbId: req.params.imdbId });
+
+    if (!movie) {
+      res.status(400).json({ message: 'Movie does not exist!' });
+    }
+
+    const patchMovie = await Movie.findByIdAndUpdate(movie, req.body, {
+      new: true
+    }).populate(
+      'genres directors.name writers.name casting.principal.name casting.extended.name'
+    );
+
+    res.status(200).json(patchMovie);
   } catch (error) {
     res.status(400).json(error.message);
   }

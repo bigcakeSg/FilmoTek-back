@@ -6,13 +6,15 @@ const {
   getMovieList,
   getMovieMiniInfos,
   getMovieFullInfos,
-  deleteMovie
+  deleteMovie,
+  updateSeenMovie
 } = require('../controllers/movie.controller');
 
 router.post('/', setMovie);
 router.get('/list', getMovieList);
-router.get('/mini-infos/:imdbId', getMovieMiniInfos);
-router.get('/infos/:imdbId', getMovieFullInfos);
+router.get('/:imdbId/mini-infos', getMovieMiniInfos);
+router.get('/:imdbId/infos', getMovieFullInfos);
 router.delete('/:imdbId', deleteMovie);
+router.patch('/:imdbId/seen', updateSeenMovie);
 
 module.exports = router;

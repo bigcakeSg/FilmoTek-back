@@ -48,11 +48,11 @@ const movieSchema = new mongoose.Schema({
     required: false
   },
   directors: {
-    type: [{ type: creator, ref: 'Name', required: false }],
+    type: [{ type: creator, required: false }],
     required: false
   },
   writers: {
-    type: [{ type: creator, ref: 'Name', required: false }],
+    type: [{ type: creator, required: false }],
     required: false
   },
   casting: {
@@ -61,7 +61,8 @@ const movieSchema = new mongoose.Schema({
       extended: [{ type: cast, required: false }]
     },
     required: false
-  }
+  },
+  seen: { type: Boolean, required: false }
 });
 
 module.exports = mongoose.model('Movie', movieSchema);
