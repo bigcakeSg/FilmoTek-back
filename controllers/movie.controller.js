@@ -122,3 +122,19 @@ module.exports.getMovieFullInfos = async (req, res) => {
     res.status(400).json(error.message);
   }
 };
+
+// Delete movie
+module.exports.deleteMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findOne({ imdbId: req.params.imdbId });
+
+    if (!movie) {
+      throw new Error(`Movie id: ${req.params.movieid} does not exist!`);
+    }
+
+    await movie.deleteOne({ _id: movie });
+    res.status(200).json({ message: `"${movie.originalTitle}" deleted!` });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
