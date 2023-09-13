@@ -7,7 +7,8 @@ const {
   getSupportDvd,
   getSupportBd,
   getSupportUhd,
-  patchSupport
+  patchSupport,
+  patchSupportSingle
 } = require('../controllers/support.controller');
 
 router.get('/vhs', getSupportVhs);
@@ -16,5 +17,6 @@ router.get('/dvd', getSupportDvd);
 router.get('/bd', getSupportBd);
 router.get('/uhd', getSupportUhd);
 router.patch('/movie/:movieId', patchSupport);
+router.patch('/movie/:movieId/support/:support', patchSupportSingle);
 
 module.exports = router;

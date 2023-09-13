@@ -142,3 +142,25 @@ module.exports.patchSupport = async (req, res) => {
     res.status(400).json(error.message);
   }
 };
+
+module.exports.patchSupportSingle = async (req, res) => {
+  try {
+    if (req.body.alreadyExists) {
+      await Support.findOneAndUpdate(
+        { type: req.params.support },
+        { $pull: { movies: req.params.movieId } },
+        { new: true }
+      );
+    } else {
+      await Support.findOneAndUpdate(
+        { type: req.params.support },
+        { $addToSet: { movies: req.params.movieId } },
+        { new: true }
+      );
+    }
+
+    res.status(200).json();
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
