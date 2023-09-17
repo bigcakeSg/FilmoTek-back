@@ -15,8 +15,8 @@ router.post('/', setMovie);
 router.get('/list', getMovieList);
 router.get('/:imdbId/mini-infos', getMovieMiniInfos);
 router.get('/:imdbId/infos', getMovieFullInfos);
-router.delete('/:imdbId', deleteMovie);
-router.patch('/:imdbId/seen', updateSeenMovie);
+router.delete('/:movieId', deleteMovie);
+router.patch('/:movieId/seen', updateSeenMovie);
 router.patch('/seen', updateSeenAllMovie);
 
 module.exports = router;

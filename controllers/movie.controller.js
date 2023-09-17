@@ -132,7 +132,7 @@ module.exports.getMovieFullInfos = (req, res) => {
 // Delete movie
 module.exports.deleteMovie = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ imdbId: req.params.imdbId });
+    const movie = await Movie.findOne({ _id: req.params.movieId });
 
     if (!movie) {
       throw new Error(`Movie id: ${req.params.movieid} does not exist!`);
@@ -148,7 +148,7 @@ module.exports.deleteMovie = async (req, res) => {
 // Update seen movie
 module.exports.updateSeenMovie = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ imdbId: req.params.imdbId });
+    const movie = await Movie.findOne({ _id: req.params.movieId });
 
     if (!movie) {
       res.status(400).json({ message: 'Movie does not exist!' });

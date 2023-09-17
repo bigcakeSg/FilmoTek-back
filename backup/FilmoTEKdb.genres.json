@@ -1,0 +1,192 @@
+[{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d4d"
+  },
+  "text": "Drama",
+  "id": "Drama",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d5d"
+  },
+  "text": "Action",
+  "id": "Action",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d68"
+  },
+  "text": "Biography",
+  "id": "Biography",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d6a"
+  },
+  "text": "Adventure",
+  "id": "Adventure",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d6c"
+  },
+  "text": "Adventure",
+  "id": "Adventure",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d72"
+  },
+  "text": "Crime",
+  "id": "Crime",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d75"
+  },
+  "text": "Sci-Fi",
+  "id": "Sci-Fi",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d7d"
+  },
+  "text": "History",
+  "id": "History",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d88"
+  },
+  "text": "War",
+  "id": "War",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d8e"
+  },
+  "text": "War",
+  "id": "War",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc11dbb076ebb5d7b0d94"
+  },
+  "text": "Thriller",
+  "id": "Thriller",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc120bb076ebb5d7b10c8"
+  },
+  "text": "Family",
+  "id": "Family",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc120bb076ebb5d7b119a"
+  },
+  "text": "Fantasy",
+  "id": "Fantasy",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc122bb076ebb5d7b13c4"
+  },
+  "text": "Comedy",
+  "id": "Comedy",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc123bb076ebb5d7b1596"
+  },
+  "text": "Horror",
+  "id": "Horror",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc123bb076ebb5d7b15a9"
+  },
+  "text": "Mystery",
+  "id": "Mystery",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc125bb076ebb5d7b17e3"
+  },
+  "text": "Animation",
+  "id": "Animation",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc129bb076ebb5d7b1d89"
+  },
+  "text": "Musical",
+  "id": "Musical",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc129bb076ebb5d7b1d9c"
+  },
+  "text": "Romance",
+  "id": "Romance",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc184bb076ebb5d7b3be4"
+  },
+  "text": "Sport",
+  "id": "Sport",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc1f3bb076ebb5d7b7594"
+  },
+  "text": "Music",
+  "id": "Music",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efc22cbb076ebb5d7ba3ec"
+  },
+  "text": "Western",
+  "id": "Western",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efd38ddc8527cf72d42f59"
+  },
+  "text": "Film-Noir",
+  "id": "Film-Noir",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64efd38edc8527cf72d42fca"
+  },
+  "text": "Short",
+  "id": "Short",
+  "__v": 0
+}]

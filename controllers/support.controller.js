@@ -1,12 +1,17 @@
 const Support = require('../models/support.model');
 
-module.exports.getSupportVhs = (_, res) => {
+const findSupport = async (support) => {
+  return await Support.findOne({ type: support })
+    .select('movies')
+    .then((supportList) => {
+      return supportList.movies;
+    });
+};
+
+module.exports.getSupportVhs = async (_, res) => {
   try {
-    Support.findOne({ type: 'vhs' })
-      .select('movies')
-      .then((support) => {
-        res.status(200).json(support.movies);
-      });
+    const movieList = await findSupport('vhs');
+    res.status(200).json(movieList);
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -14,11 +19,8 @@ module.exports.getSupportVhs = (_, res) => {
 
 module.exports.getSupportLd = async (_, res) => {
   try {
-    Support.findOne({ type: 'ld' })
-      .select('movies')
-      .then((support) => {
-        res.status(200).json(support.movies);
-      });
+    const movieList = await findSupport('ld');
+    res.status(200).json(movieList);
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -26,11 +28,8 @@ module.exports.getSupportLd = async (_, res) => {
 
 module.exports.getSupportDvd = async (_, res) => {
   try {
-    Support.findOne({ type: 'dvd' })
-      .select('movies')
-      .then((support) => {
-        res.status(200).json(support.movies);
-      });
+    const movieList = await findSupport('dvd');
+    res.status(200).json(movieList);
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -38,11 +37,8 @@ module.exports.getSupportDvd = async (_, res) => {
 
 module.exports.getSupportBd = async (_, res) => {
   try {
-    Support.findOne({ type: 'bd' })
-      .select('movies')
-      .then((support) => {
-        res.status(200).json(support.movies);
-      });
+    const movieList = await findSupport('bd');
+    res.status(200).json(movieList);
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -50,92 +46,38 @@ module.exports.getSupportBd = async (_, res) => {
 
 module.exports.getSupportUhd = async (_, res) => {
   try {
-    Support.findOne({ type: 'uhd' })
-      .select('movies')
-      .then((support) => {
-        res.status(200).json(support.movies);
-      });
+    const movieList = await findSupport('uhd');
+    res.status(200).json(movieList);
   } catch (error) {
     res.status(400).json(error.message);
   }
 };
 
-module.exports.patchSupport = async (req, res) => {
+const addRemoveSupport = async (movieId, support, alreadyExists) => {
+  if (alreadyExists) {
+    await Support.findOneAndUpdate(
+      { type: support },
+      { $pull: { movies: movieId } },
+      { new: true }
+    );
+  } else {
+    await Support.findOneAndUpdate(
+      { type: support },
+      { $addToSet: { movies: movieId } },
+      { new: true }
+    );
+  }
+};
+
+module.exports.patchSupport = async ({ body, params }, res) => {
   try {
-    // add / remove vhs
-    if (req.body.includes('vhs')) {
-      await Support.findOneAndUpdate(
-        { type: 'vhs' },
-        { $addToSet: { movies: req.params.movieId } },
-        { new: true }
-      );
-    } else {
-      await Support.findOneAndUpdate(
-        { type: 'vhs' },
-        { $pull: { movies: req.params.movieId } },
-        { new: true }
-      );
-    }
+    const formats = ['vhs', 'ld', 'dvd', 'bd', 'uhd'];
 
-    // add / remove ld
-    if (req.body.includes('ld')) {
-      await Support.findOneAndUpdate(
-        { type: 'ld' },
-        { $addToSet: { movies: req.params.movieId } },
-        { new: true }
-      );
-    } else {
-      await Support.findOneAndUpdate(
-        { type: 'ld' },
-        { $pull: { movies: req.params.movieId } },
-        { new: true }
-      );
-    }
-
-    // add / remove dvd
-    if (req.body.includes('dvd')) {
-      await Support.findOneAndUpdate(
-        { type: 'dvd' },
-        { $addToSet: { movies: req.params.movieId } },
-        { new: true }
-      );
-    } else {
-      await Support.findOneAndUpdate(
-        { type: 'dvd' },
-        { $pull: { movies: req.params.movieId } },
-        { new: true }
-      );
-    }
-
-    // add / remove bd
-    if (req.body.includes('bd')) {
-      await Support.findOneAndUpdate(
-        { type: 'bd' },
-        { $addToSet: { movies: req.params.movieId } },
-        { new: true }
-      );
-    } else {
-      await Support.findOneAndUpdate(
-        { type: 'bd' },
-        { $pull: { movies: req.params.movieId } },
-        { new: true }
-      );
-    }
-
-    // add / remove uhd
-    if (req.body.includes('uhd')) {
-      await Support.findOneAndUpdate(
-        { type: 'uhd' },
-        { $addToSet: { movies: req.params.movieId } },
-        { new: true }
-      );
-    } else {
-      await Support.findOneAndUpdate(
-        { type: 'uhd' },
-        { $pull: { movies: req.params.movieId } },
-        { new: true }
-      );
-    }
+    Promise.all(
+      formats.map((format) =>
+        addRemoveSupport(params.movieId, format, !body.includes(format))
+      )
+    );
 
     res.status(200).json();
   } catch (error) {
@@ -143,21 +85,9 @@ module.exports.patchSupport = async (req, res) => {
   }
 };
 
-module.exports.patchSupportSingle = async (req, res) => {
+module.exports.patchSupportSingle = async ({ body, params }, res) => {
   try {
-    if (req.body.alreadyExists) {
-      await Support.findOneAndUpdate(
-        { type: req.params.support },
-        { $pull: { movies: req.params.movieId } },
-        { new: true }
-      );
-    } else {
-      await Support.findOneAndUpdate(
-        { type: req.params.support },
-        { $addToSet: { movies: req.params.movieId } },
-        { new: true }
-      );
-    }
+    await addRemoveSupport(params.movieId, params.support, body.alreadyExists);
 
     res.status(200).json();
   } catch (error) {
