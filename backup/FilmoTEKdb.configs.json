@@ -1,0 +1,10 @@
+[{
+  "_id": {
+    "$oid": "64f6302946802c6014e4d81c"
+  },
+  "rapidApiHeader": {
+    "X-RapidAPI-Key": "4ea5831d7amsh4a1eef4eab2897dp186c23jsn32a5db1fb8b3",
+    "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+  },
+  "region": "FR"
+}]

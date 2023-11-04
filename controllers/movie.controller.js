@@ -112,15 +112,18 @@ module.exports.getMovieMiniInfos = async (req, res) => {
 };
 
 // Get Movie infos
-module.exports.getMovieFullInfos = async (req, res) => {
+module.exports.getMovieFullInfos = (req, res) => {
   try {
-    const movie = await Movie.findOne({
+    Movie.findOne({
       imdbId: req.params.imdbId
-    }).populate(
-      'genres directors.name writers.name casting.principal.name casting.extended.name'
-    );
-
-    res.status(200).json(movie);
+    })
+      .populate(
+        'genres directors.name writers.name casting.principal.name casting.extended.name'
+      )
+      .then((movie) => {
+        if (movie) res.status(200).json(movie);
+        else res.status(404).json({ message: 'Movie not found!' });
+      });
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -129,7 +132,7 @@ module.exports.getMovieFullInfos = async (req, res) => {
 // Delete movie
 module.exports.deleteMovie = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ imdbId: req.params.imdbId });
+    const movie = await Movie.findOne({ _id: req.params.movieId });
 
     if (!movie) {
       throw new Error(`Movie id: ${req.params.movieid} does not exist!`);
@@ -145,7 +148,7 @@ module.exports.deleteMovie = async (req, res) => {
 // Update seen movie
 module.exports.updateSeenMovie = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ imdbId: req.params.imdbId });
+    const movie = await Movie.findOne({ _id: req.params.movieId });
 
     if (!movie) {
       res.status(400).json({ message: 'Movie does not exist!' });
@@ -158,6 +161,15 @@ module.exports.updateSeenMovie = async (req, res) => {
     );
 
     res.status(200).json(patchMovie);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+module.exports.updateSeenAllMovie = async (_, res) => {
+  try {
+    await Movie.updateMany({}, { seen: true });
+    res.status(200).json({ message: 'OK' });
   } catch (error) {
     res.status(400).json(error.message);
   }
